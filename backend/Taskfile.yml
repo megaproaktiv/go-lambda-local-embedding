@@ -1,0 +1,43 @@
+# https://taskfile.dev
+
+version: "3"
+vars:
+  STACK: hugoembedding-backend
+  FUNCTION: hugoembedding
+
+env:
+  ENV: testing
+
+dotenv: [".env", "{{.ENV}}/.env."]
+
+tasks:
+  build:
+    desc: Sam build
+    cmds:
+      - sam build
+    silent: true
+
+  deploy:
+    desc: Sam deploy
+    deps:
+      - build
+    cmds:
+      - sam deploy
+    silent: true
+
+  destroy:
+    desc: sam delete
+    cmds:
+      - sam delete
+
+  invoke:
+    desc: curl server
+    cmds:
+      - sam remote invoke --stack-name {{.STACK}} --event-file './testdata/question-001.json' {{.FUNCTION}}
+      - sam remote invoke --stack-name {{.STACK}} --event-file './testdata/question-002.json' {{.FUNCTION}}
+      - sam remote invoke --stack-name {{.STACK}} --event-file './testdata/question-003.json' {{.FUNCTION}}
+    silent: false
+  sync:
+    desc: sync code
+    cmds:
+      - sam sync --code --stack-name {{.STACK}} --watch

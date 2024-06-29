@@ -1,0 +1,27 @@
+# https://taskfile.dev
+
+version: "3"
+
+env:
+  ENV: testing
+vars:
+  DIST: dist
+  DATE:
+    sh: date +%Y-%m-%d-%H%M
+
+tasks:
+  build:
+    desc: Build the project
+    cmds:
+      - mkdir -p {{.DIST}}
+      - go build -o {{.DIST}}/import main/main.go
+
+  import:
+    desc: Import into sqllite
+    cmds:
+      - go run main/main.go -
+
+  copy:
+    desc: Copy to lambda
+    cmds:
+      - cp db-data/db.gob ../backend/lambda/query/db-data/db.gob

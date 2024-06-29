@@ -1,0 +1,7 @@
+backend/.aws-sam
+backend/lambda/query/db-data/db.gob
+backend/var
+backend/.DS_Store
+import/db-data
+import/dist
+import/localstore/testdata

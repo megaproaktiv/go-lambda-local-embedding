@@ -1,0 +1,34 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: >
+  hugoembedding backend
+
+  SAM Template for hugoembedding_backend
+Transform: AWS::Serverless-2016-10-31
+Parameters:
+  StageName:
+    Type: String
+    Default: dev
+Resources:
+  hugoembedding:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: hugoembedding
+      # FunctionUrlConfig:
+      #   AuthType: NONE
+      CodeUri: lambda/query
+      Architectures:
+        - arm64
+      Handler: bootstrap
+      Runtime: provided.al2
+      MemorySize: 1024
+      Timeout: 90
+      ReservedConcurrentExecutions: 1
+      Policies:
+        - AWSLambdaBasicExecutionRole
+        - Statement:
+            - Sid: BedrockRuntime
+              Effect: Allow
+              Action:
+                - bedrockruntime:InvokeModel
+                - bedrock:InvokeModel
+              Resource: "*"

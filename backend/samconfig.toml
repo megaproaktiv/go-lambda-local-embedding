@@ -1,0 +1,9 @@
+version = 0.1
+[default.deploy.parameters]
+stack_name = "hugoembedding-backend"
+resolve_s3 = true
+s3_prefix = "hugoembedding-backend"
+region = "eu-central-1"
+capabilities = "CAPABILITY_IAM"
+parameter_overrides = "StageName=\"dev\""
+image_repositories = []
