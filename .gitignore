@@ -5,3 +5,4 @@ backend/.DS_Store
 import/db-data
 import/dist
 import/localstore/testdata
+cli/dist
